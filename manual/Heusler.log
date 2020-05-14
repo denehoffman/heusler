@@ -1,0 +1,368 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.4.27)  13 MAY 2020 20:35
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Heusler.tex
+(./Heusler.tex
+LaTeX2e <2018-12-01>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/physics/physics.sty
+Package: physics 
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2019-07-01 L3 programming layer (loader) 
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+Package: expl3 2019-07-01 L3 programming layer (code)
+\c_max_int=\count88
+\l_tmpa_int=\count89
+\l_tmpb_int=\count90
+\g_tmpa_int=\count91
+\g_tmpb_int=\count92
+\g__kernel_prg_map_int=\count93
+\c__ior_term_ior=\count94
+\c_log_iow=\count95
+\l_iow_line_count_int=\count96
+\l__iow_line_target_int=\count97
+\l__iow_one_indent_int=\count98
+\l__iow_indent_int=\count99
+\c_zero_dim=\dimen103
+\c_max_dim=\dimen104
+\l_tmpa_dim=\dimen105
+\l_tmpb_dim=\dimen106
+\g_tmpa_dim=\dimen107
+\g_tmpb_dim=\dimen108
+\c_zero_skip=\skip43
+\c_max_skip=\skip44
+\l_tmpa_skip=\skip45
+\l_tmpb_skip=\skip46
+\g_tmpa_skip=\skip47
+\g_tmpb_skip=\skip48
+\c_zero_muskip=\muskip10
+\c_max_muskip=\muskip11
+\l_tmpa_muskip=\muskip12
+\l_tmpb_muskip=\muskip13
+\g_tmpa_muskip=\muskip14
+\g_tmpb_muskip=\muskip15
+\l_keys_choice_int=\count100
+\l__intarray_loop_int=\count101
+\c__intarray_sp_dim=\dimen109
+\g__intarray_font_int=\count102
+\c__fp_leading_shift_int=\count103
+\c__fp_middle_shift_int=\count104
+\c__fp_trailing_shift_int=\count105
+\c__fp_big_leading_shift_int=\count106
+\c__fp_big_middle_shift_int=\count107
+\c__fp_big_trailing_shift_int=\count108
+\c__fp_Bigg_leading_shift_int=\count109
+\c__fp_Bigg_middle_shift_int=\count110
+\c__fp_Bigg_trailing_shift_int=\count111
+\c__kernel_randint_max_int=\count112
+\g__fp_array_int=\count113
+\l__fp_array_loop_int=\count114
+\l__sort_length_int=\count115
+\l__sort_min_int=\count116
+\l__sort_top_int=\count117
+\l__sort_max_int=\count118
+\l__sort_true_max_int=\count119
+\l__sort_block_int=\count120
+\l__sort_begin_int=\count121
+\l__sort_end_int=\count122
+\l__sort_A_int=\count123
+\l__sort_B_int=\count124
+\l__sort_C_int=\count125
+\l__str_internal_int=\count126
+\c__str_replacement_char_int=\count127
+\l__tl_analysis_normal_int=\count128
+\l__tl_analysis_index_int=\count129
+\l__tl_analysis_nesting_int=\count130
+\l__tl_analysis_type_int=\count131
+\l__regex_internal_a_int=\count132
+\l__regex_internal_b_int=\count133
+\l__regex_internal_c_int=\count134
+\l__regex_balance_int=\count135
+\l__regex_group_level_int=\count136
+\l__regex_mode_int=\count137
+\c__regex_cs_in_class_mode_int=\count138
+\c__regex_cs_mode_int=\count139
+\l__regex_catcodes_int=\count140
+\l__regex_default_catcodes_int=\count141
+\c__regex_catcode_D_int=\count142
+\c__regex_catcode_S_int=\count143
+\c__regex_catcode_L_int=\count144
+\c__regex_catcode_O_int=\count145
+\c__regex_catcode_A_int=\count146
+\c__regex_all_catcodes_int=\count147
+\l__regex_show_lines_int=\count148
+\l__regex_min_state_int=\count149
+\l__regex_max_state_int=\count150
+\l__regex_left_state_int=\count151
+\l__regex_right_state_int=\count152
+\l__regex_capturing_group_int=\count153
+\l__regex_min_pos_int=\count154
+\l__regex_max_pos_int=\count155
+\l__regex_curr_pos_int=\count156
+\l__regex_start_pos_int=\count157
+\l__regex_success_pos_int=\count158
+\l__regex_curr_char_int=\count159
+\l__regex_curr_catcode_int=\count160
+\l__regex_last_char_int=\count161
+\l__regex_case_changed_char_int=\count162
+\l__regex_curr_state_int=\count163
+\l__regex_step_int=\count164
+\l__regex_min_active_int=\count165
+\l__regex_max_active_int=\count166
+\l__regex_replacement_csnames_int=\count167
+\l__regex_match_count_int=\count168
+\l__regex_min_submatch_int=\count169
+\l__regex_submatch_int=\count170
+\l__regex_zeroth_submatch_int=\count171
+\g__regex_trace_regex_int=\count172
+\c_empty_box=\box27
+\l_tmpa_box=\box28
+\l_tmpb_box=\box29
+\g_tmpa_box=\box30
+\g_tmpb_box=\box31
+\l__box_top_dim=\dimen110
+\l__box_bottom_dim=\dimen111
+\l__box_left_dim=\dimen112
+\l__box_right_dim=\dimen113
+\l__box_top_new_dim=\dimen114
+\l__box_bottom_new_dim=\dimen115
+\l__box_left_new_dim=\dimen116
+\l__box_right_new_dim=\dimen117
+\l__box_internal_box=\box32
+\l__coffin_internal_box=\box33
+\l__coffin_internal_dim=\dimen118
+\l__coffin_offset_x_dim=\dimen119
+\l__coffin_offset_y_dim=\dimen120
+\l__coffin_x_dim=\dimen121
+\l__coffin_y_dim=\dimen122
+\l__coffin_x_prime_dim=\dimen123
+\l__coffin_y_prime_dim=\dimen124
+\c_empty_coffin=\box34
+\l__coffin_aligned_coffin=\box35
+\l__coffin_aligned_internal_coffin=\box36
+\l_tmpa_coffin=\box37
+\l_tmpb_coffin=\box38
+\g_tmpa_coffin=\box39
+\g_tmpb_coffin=\box40
+\l__coffin_bounding_shift_dim=\dimen125
+\l__coffin_left_corner_dim=\dimen126
+\l__coffin_right_corner_dim=\dimen127
+\l__coffin_bottom_corner_dim=\dimen128
+\l__coffin_top_corner_dim=\dimen129
+\l__coffin_scaled_total_height_dim=\dimen130
+\l__coffin_scaled_width_dim=\dimen131
+\c__coffin_empty_coffin=\box41
+\l__coffin_display_coffin=\box42
+\l__coffin_display_coord_coffin=\box43
+\l__coffin_display_pole_coffin=\box44
+\l__coffin_display_offset_dim=\dimen132
+\l__coffin_display_x_dim=\dimen133
+\l__coffin_display_y_dim=\dimen134
+\g__file_internal_ior=\read1
+\l__seq_internal_a_int=\count173
+\l__seq_internal_b_int=\count174
+\c__deprecation_minus_one=\count175
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2019-04-06 v L3 Experimental backend support: PDF m
+ode
+\l__kernel_color_stack_int=\count176
+\l__pdf_internal_box=\box45
+))
+Package: xparse 2019-05-28 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count177
+\g__xparse_grabber_int=\count178
+\l__xparse_m_args_int=\count179
+\l__xparse_v_nesting_int=\count180
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2018/12/01 v2.17b AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks14
+\ex@=\dimen135
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen136
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count181
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count182
+\leftroot@=\count183
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count184
+\DOTSCASE@=\count185
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box46
+\strutbox@=\box47
+\big@size=\dimen137
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count186
+\c@MaxMatrixCols=\count187
+\dotsspace@=\muskip16
+\c@parentequation=\count188
+\dspbrk@lvl=\count189
+\tag@help=\toks15
+\row@=\count190
+\column@=\count191
+\maxfields@=\count192
+\andhelp@=\toks16
+\eqnshift@=\dimen138
+\alignsep@=\dimen139
+\tagshift@=\dimen140
+\tagwidth@=\dimen141
+\totwidth@=\dimen142
+\lineht@=\dimen143
+\@envbody=\toks17
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
+)) (./Heusler.aux)
+\openout1 = `Heusler.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+
+(./Heusler.toc
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 4.
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+\tf@toc=\write3
+\openout3 = `Heusler.toc'.
+
+ [2]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <17.28> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 74.
+
+[3]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 84.
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
+\OT1/cmtt/m/n/12 struct[]enum.out\OT1/cmr/m/n/12 ) and is gen-er-ated us-ing th
+e pro-gram
+ []
+
+
+Overfull \hbox (5.2002pt too wide) in paragraph at lines 89--89
+[]    \OT1/cmtt/m/n/12 python3 Analysis.py XYZ struct_enum.out --map <filename>
+.csv[] 
+ []
+
+[4]
+Overfull \hbox (5.2002pt too wide) in paragraph at lines 99--99
+[]    \OT1/cmtt/m/n/12 python3 Analysis.py XYZ struct_enum.out --rad <filename>
+.csv[] 
+ []
+
+[5]
+\matrixtoks=\toks19
+\matrixtoks=\toks20
+\matrixtoks=\toks21
+\matrixtoks=\toks22
+ [6]
+Overfull \hbox (5.2002pt too wide) in paragraph at lines 145--145
+[]    \OT1/cmtt/m/n/12 EnergyMinimization_Widom.x struct_enum.out INT >> output
+.csv[] 
+ []
+
+[7] [8] [9]
+Overfull \hbox (29.9002pt too wide) in paragraph at lines 197--197
+[]    \OT1/cmtt/m/n/12 cat XYZ | xyz2enum.sh -m ``AlCo'' -n 2 -s ``0/1 0/1'' >>
+ enum.in[] 
+ []
+
+
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 212--212
+[]    \OT1/cmtt/m/n/12 EnergyMinimization.x struct_enum.out INT >> 2sp_degen_ra
+d.csv[] 
+ []
+
+
+Overfull \hbox (23.7252pt too wide) in paragraph at lines 212--212
+[]    \OT1/cmtt/m/n/12 python3 Analysis.py XYZ struct_enum.out --rad 2sp_degen_
+rad.csv[] 
+ []
+
+[10]
+Overfull \hbox (85.47523pt too wide) in paragraph at lines 228--228
+[]    \OT1/cmtt/m/n/12 for d in variations.*; do cd $d; xyz2pos XYZ -mag co=3; 
+qvasp; cd -; done[] 
+ []
+
+[11] (./Heusler.aux) ) 
+Here is how much of TeX's memory you used:
+ 11474 strings out of 492609
+ 214731 string characters out of 6131462
+ 252622 words of memory out of 5000000
+ 15423 multiletter control sequences out of 15000+600000
+ 540082 words of font info for 53 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 47i,22n,65p,1247b,349s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmtt12.pfb>
+Output written on Heusler.pdf (11 pages, 168673 bytes).
+PDF statistics:
+ 92 PDF objects out of 1000 (max. 8388607)
+ 65 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

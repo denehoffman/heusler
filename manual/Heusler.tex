@@ -1,0 +1,244 @@
+\documentclass[12pt]{article}
+\usepackage{physics}
+\author{Nathaniel D. Hoffman}
+\date{\today}
+\title{Overview of Programs for Total Enumeration Analysis}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    The purpose of this document is to explain the programs I wrote to analyze Heusler structures in the Spring of 2020. Most of these programs will, I believe, work well with arbitrary structures, and they all can be extended to any form of model which uses simple scalar multipliers to describe nearest and next-nearest neighbor interactions. I have also documented each of my programs within the code itself.
+\end{abstract}
+
+\tableofcontents
+
+\section{Python Setup}
+
+\subsection{Dependencies}
+
+I ran all of the \texttt{python} code using Python 3.7.5, although it should run fine on Python 3.8 and future versions as long as the dependencies are also updated. At time of writing, the dependencies are listed in the \texttt{requirements.txt} file:
+\begin{verbatim}
+    scipy==1.4.1
+    plotly==4.6.0
+    numpy==1.18.2
+    pandas==1.0.3
+\end{verbatim}
+
+This should be all of the \texttt{python} libraries required to run all of the code I have written. Scipy and Numpy deal with all of the mathematical methods of analysis, Plotly is used for all of the plotting, and Pandas is primarily used to organize, import, and export large datasets. Again, I believe this code will run on future versions of these libraries. However, the \texttt{plotly} library must be installed specifically as the specified version (or a later one). By default, \texttt{pip3 install plotly} will currently install a previous version of the library which is rather outdated.
+
+\subsection{Installing and Running}
+
+The advent of \texttt{python} Virtual Environments makes it very easy to install just the packages required for this specific set of tools while keeping your main \texttt{python} distribution unchanged. It also allows for simple control of dependency versions and does not require administrator access to set up. However, the original installation of \texttt{virtualenv} must be performed first. The following code will install it at a \texttt{user} access level.
+\begin{verbatim}
+    python3 -m pip install --user virtualenv
+\end{verbatim}
+
+Next, navigate to the directory with the analysis tools. The following command will initialize a virtual environment in a folder called \texttt{env}:
+\begin{verbatim}
+    python3 -m venv env
+\end{verbatim}
+
+To activate this virtual environment, simply source the activation script:
+\begin{verbatim}
+    source env/bin/activate
+\end{verbatim}
+Alternative sourcing scripts for \texttt{tcsh} or the \texttt{fish} shells are also included in this folder. To exit the virtual environment, use the command
+\begin{verbatim}
+    deactivate
+\end{verbatim}
+
+While in a virtual environment, we can install the required packages using the command
+\begin{verbatim}
+    pip3 install -r requirements.txt
+\end{verbatim}
+
+All of the \texttt{python} programs I have written can then be run in the virtual environment using
+\begin{verbatim}
+    python3 <program name>.py
+\end{verbatim}
+
+
+While I have set up all of the \texttt{python} files with a shebang (\verb|#!|), these will not point to a virtual environment. They can only be run without the \texttt{python3} command if the packages have been installed on the system version of \texttt{python} (at least at the \texttt{user} level). This can be achieved by running
+\begin{verbatim}
+    pip3 install -r --user requirements.txt
+\end{verbatim}
+
+After this, it should be possible to run all of the \texttt{python} programs with
+\begin{verbatim}
+    ./<program name>.py
+\end{verbatim}
+
+They will also run using the \texttt{python3} command.
+
+\section{\texttt{Analysis.py}}
+
+Running the program with the \verb|-h| or \verb|--help| argument will display a short manual for the required inputs of this program:
+\begin{verbatim}
+    python3 Analysis.py --help
+\end{verbatim}
+
+\subsection{Input Files}
+There are two files which must be included (in the following order) in order to perform any analysis. These are simple an \texttt{XYZ} file (which uses the typical syntax and formatting obtained from \texttt{mkpearson}) and an \texttt{struct\_enum.out} file, which is obtained from running the \texttt{enum.x} program. If these required files have been provided, the program by itself will not do anything. The user must also specify at least one argument and a supplementary file (or number) as described in the following sections.
+
+\subsection{The \texttt{--map} Argument}
+
+This command simply generates a heatmap-like graph to visualize lowest energy states using the ``J-K'' model. It requires an additional \texttt{CSV} file which contains rows and columns of configuration IDs (matching those given in \texttt{struct\_enum.out}) and is generated using the program\break \texttt{EnergyMinimization\_v2.f90}. Running
+\begin{verbatim}
+    python3 Analysis.py XYZ struct_enum.out --map <filename>.csv
+\end{verbatim}
+will produce and display the desired plot using \texttt{plotly}'s usual \texttt{HTML} format. These plots can be saved as \texttt{HTML} files from the web browser or as images using the camera icon in the plot window.
+
+The \texttt{--map} argument is outdated, since we realized it was possible to condense the search over $ J $ and $ K $ values. This is discussed in the next subsection.
+
+\subsection{The \texttt{--rad} Argument}
+
+Like the \texttt{--map} argument, this also takes a single \texttt{CSV} file. However, this file provides the data from a radial sweep over $ J $ and $ K $ values. This can be generated from the \texttt{EMin\_v3.f90} program (the method of generation is discussed in the corresponding section). The file will have columns of $ J $, $ K $, $ \theta $, and the configuration ID, in that order. Degenerate configurations will have rows which are identical in every column except for the ID. I don't believe the rows actually have to be in an order of increasing $ \theta $, so in the future, if someone were to use some sort of asynchronous aggregation to generate the file, this program should still work. Also like the \texttt{--map} argument, a plot can be generated using
+\begin{verbatim}
+    python3 Analysis.py XYZ struct_enum.out --rad <filename>.csv
+\end{verbatim}
+
+This will generate a plot which looks more like a pie chart. Degenerate structures will show up in different colors within the same pie slice (the radial position is meaningless) while the angular position will indicate the $ J $ and $ K $ value used.
+
+\subsection{The \texttt{--draw} Argument}
+
+The final argument does not take an additional file, but instead a numerical configuration ID which can be found in either of the plots generated from the method above or simply from the \texttt{struct\_enum.out} file. Running
+\begin{verbatim}
+    python3 Analysis.py --draw ####
+\end{verbatim}
+will produce a 3D crystal structure plot which can be rotated and zoomed. By default, it will contain just the lattice points described in the \texttt{XYZ} file, but there is a section of commented-out code which can be uncommented to plot a single repetition of the structure in every direction (expanding from a unit cell to a $ 3 \times 3 \times 3 $ cluster of unit cells).
+
+\section{\texttt{EnergyMinimization\_v2.f90}}
+
+This file contains the source code for a \texttt{FORTRAN} program to generate the square plots of energy minimizing configurations for a range of $ J $ and $ K $ values. It does not aggregate degeneracies, which is why the later version, \texttt{EMin\_v3.f90} is recommended. By default, this program will generate a $ 201 \times 201 $ (this is hard-coded but can be modified by changing the declaration of the \texttt{STEPS} variable) grid of energy-minimizing configuration IDs in a \texttt{CSV} file (it will send them to \texttt{stdout} but they should be piped to a \texttt{CSV} file for use in the \texttt{Analysis.py} program). It will also use a diagonal interaction matrix, described in the variable \texttt{intmatrix}. This is a three-dimensional array of size $ N \times N \times 2 $, where $ N $ is the number of species. By default, I initialize it with $ N=4 $ because I have set it up to also run fine on $ N<4 $ without requiring any changes to the interaction matrix. The interaction matrix can be thought of as having two layers, the first for the nearest-neighbor interactions and the second for the next-nearest neighbor interactions. In our default J-K model, our Hamiltonian can be written as
+\begin{equation}
+    H = \sum_{<i,j>} J \delta_{\sigma_i, \sigma_j} + \sum_{\ll i,j\gg} K \delta_{\sigma_i, \sigma_j}
+\end{equation}
+where $ <i,j> $ and $ \ll i,j \gg $ correspond to the set of nearest and next-nearest neighbor pairs of lattice points respectively, and $ \sigma_i $ refers to the elemental species of the atom located at the $ i $th lattice point. The interaction matrix for this Hamiltonian can be written as
+\begin{align}
+    M_{ij1} &= \mqty(\dmat[0]{J,J,J,J}) \\
+    M_{ij2} &= \mqty(\dmat[0]{K,K,K,K})
+\end{align}
+In this way, it is clear to see that the on-diagonal terms of the matrix correspond to the particles interaction with like-species while the $ M_{ij} $ element of each matrix corresponds to the interaction between the $ i $th and $ j $th species.
+
+During this project, we also developed an alternative Hamiltonian which only applied to the four-species structures:
+\begin{equation}
+    H = \sum_{<i,j>} J \delta_{\chi_i, \chi_j} + \sum_{\ll i,j\gg} K \delta_{\sigma_i, \sigma_j}
+\end{equation}
+where $ \chi_i $ now refers to a grouping of species. Specifically for this model, we say that species $ 1 $ and $ 2 $ are in the same group while species $ 3 $ and $ 4 $ are in a different group. This adds a $ J $-like (nearest-neighbor only) interaction term between species $ 1 $ and $ 2 $ and between species $ 3 $ and $ 4 $, which changes the first layer of the matrix to be
+\begin{equation}
+M_{ij1} = \mqty(J&J&0&0\\J&J&0&0\\0&0&J&J\\0&0&J&J)
+\end{equation}
+and leaves $ M_{ij2} $ unchanged.
+
+This program (as well as \texttt{EMin\_v3.f90}) takes two files as input, the first being the \texttt{struct\_enum.out} file generated by \texttt{enum.x} and the second being a file which I typically name \texttt{INT} which holds data that describes which lattice positions are nearest and next-nearest neighbors. This file can be generated using \texttt{Generate\_Interactions.py}. Because this program is relatively less useful than \texttt{EMin\_v3.f90}, I have chosen to not document it or provide a compiled version and instead document the more up-to-date version.
+
+\section{\texttt{EMin\_v3.f90}}
+
+This code functions almost identically to $ \texttt{EnergyMinimization\_v2.f90} $ except it produces data in the radial format used by \texttt{Analysis.py} and also accounts for degeneracies. It generates $ 201 $ (again, this can be changed by modifying the \texttt{STEPS} variable) $ \theta $ values for positions equally spaced around a unit circle. Values for $ J $ and $ K $ are generated using $ J = \cos(\theta) $ and $ K = \sin(\theta) $. Note that this actually results in the opposite axis assignment to that created by \texttt{EnergyMinimization\_v2.f90}. This program takes an interaction file, \texttt{INT}, described in the previous section, and can be run using
+\begin{verbatim}
+    EnergyMinimization.x struct_enum.out INT >> output.csv
+\end{verbatim}
+This will generate data for the diagonal J-K model, while
+\begin{verbatim}
+    EnergyMinimization_Widom.x struct_enum.out INT >> output.csv
+\end{verbatim}
+will generate data for the block-diagonal model mentioned in the previous section. In general, I use the suffix \texttt{\_Widom} to describe data generated with that model, omitting the suffix for the diagonal model.
+
+\section{\texttt{Generate\_Interactions.py}}
+
+This is a simple program that generates a \texttt{CSV} file containing information about the interactions between particular lattice sites in a crystal. It takes the standard \texttt{XYZ} file as an argument and generates three columns of data. The first and second column refer to the $ i $th and $ j $th lattice point while the third is $ 1 $ for a nearest-neighbor interaction and $ 2 $ for a next-nearest-neighbor interaction. The program itself generates these with periodic boundary conditions in mind by using a $ 3 \times 3 \times 3 $ block of unit cells and measuring the bond lengths between each lattice point in each cell to each lattice point in the center cell. It then takes the two smallest (non-zero) distances and outputs all pairs of lattice points which are that distance away from each other. The program can be run using
+\begin{verbatim}
+    python3 Generate_Interactions.py XYZ >> INT
+\end{verbatim}
+
+\section{\texttt{JK\_Map.f90}}
+
+This program is very similar to the minimization programs described above, but rather than finding the structure with the minimal energy, it lists how many $ J $ and $ K $-like bonds are present in every configuration listed in the \texttt{struct\_enum.out} file. It will output three columns of data corresponding to $ J $, $ K $, and a string of numbers corresponding to the configurations given in \texttt{struct\_enum.out}. For Heusler structures, these will be strings of $ 16 $ numbers ranging between $ 0 $ and $ 3 $ (for each species).
+
+I again include two compiled versions of this program corresponding to the two models discussed. They can be run using
+\begin{verbatim}
+    JK_Map<_Widom>.x struct_enum.out INT >> JKCONFIG<.csv>
+\end{verbatim}
+
+\section{\texttt{JK\_Scatter.py}}
+
+This is a very short and simple program which takes the map file generated by \texttt{JK\_Map.f90} as its only input and draws a scatter plot of the configurations and their corresponding locations in $ J $-$ K $ space. There will typically be a lot of degenerate configurations in this regard, so only one configuration will be displayed at each point if there are multiple configurations with the same $ J $ and $ K $ values. This program will also take the first value at each of these degenerate points and output a condensed version of the output from \texttt{JK\_Map.f90} which only includes one of each degenerate point. The program is executed by
+\begin{verbatim}
+    python3 JK_Scatter.py JKCONFIG >> JKCONFIG_Reduced<.csv>
+\end{verbatim}
+
+\section{\texttt{GenXYZ.py}}
+
+This program generates a group of directories containing \texttt{XYZ} files for various configurations given in an input file generated by \texttt{JK\_Map.f90} (or a reduced version from \texttt{JK\_Scatter.py}). A description of this program can be viewed by running it with the \texttt{-h} or \texttt{--help} argument. It takes three files, an original \texttt{XYZ} file, an output directory, and a \texttt{JKCONFIG} file as mentioned above:
+\begin{verbatim}
+    python3 GenXYZ.py XYZ <output directory> JKCONFIG
+\end{verbatim}
+
+This program will generate subdirectories in the \texttt{<output directory>} which each contain a new \texttt{XYZ} file corresponding to each of the configurations in \texttt{JKCONFIG}. The filenames will be generated by converting the configuration string into a number \texttt{UID} where \texttt{UID} is the base-10 representation of the configuration string if that string were thought of as a base-N number, with $ N $ being the number of species. For instance, in the two-species case, it will pretend the configuration string is a binary number and convert it to decimal. In the three-species case, it will pretend it is a base-3 number. The output directory will be filled with subdirectories named \texttt{variation\_<UID>}.
+
+\section{\texttt{JK\_fitter.py}}
+
+The final program I created compares the J-K model to \texttt{VASP} simulations. The user inputs two files, one being a \texttt{JKCONFIG} file from the programs above and the second being a file containing two columns, the first being the name of the variation file (generated by \texttt{GenXYZ.py}) and the second being the energy from \texttt{VASP}:
+\begin{verbatim}
+    python3 JK_fitter.py JKCONFIG ENERGY_DATA
+\end{verbatim}
+will create two plots. The first is a 3D representation of the data being fit and the second is a parity plot of the data. I did not write a specific program to create the \texttt{ENERGY\_DATA} file, but it's not hard to run a short script to aggregate the data. This program will also output three numbers, $ J $, $ K $, and an energy offset which are the results from fitting the data to a plane described by
+\begin{equation}
+    E = J x + K y + E_{\text{offset}}
+\end{equation}
+where $ x $ and $ y $ are the coordinates of a structure in $ J $-$ K $ space and $ E_{\text{offset}} $ is some energy offset.
+
+\section{A Typical Workflow}
+
+I will now walk through the typical workflow for analyzing a particular structure described by an \texttt{XYZ} file. No other files are needed at first, as they will all be generated by this program. For clarity, assume all files are stored in the same directory.
+\begin{verbatim}
+    cat XYZ | xyz2enum.sh -m ``AlCo'' -n 2 -s ``0/1 0/1'' >> enum.in
+\end{verbatim}
+
+At the bottom of \texttt{enum.in}, we will have to add some lines to restrict concentrations (this is not required but usually what we want to do):
+\begin{verbatim}
+    printf "1 1 2\n1 1 2\n" >> enum.in
+\end{verbatim}
+This will set the concentration to $ 50\% $ of each element.
+\begin{verbatim}
+    enum.x enum.in
+\end{verbatim}
+This will generate \texttt{struct\_enum.out}.
+\begin{verbatim}
+    python3 Generate_Interactions.py XYZ >> INT
+    EnergyMinimization.x struct_enum.out INT >> 2sp_degen_rad.csv
+    python3 Analysis.py XYZ struct_enum.out --rad 2sp_degen_rad.csv
+\end{verbatim}
+This would display a radial plot of the energy-minimizing structures. We could look at the $ B2 $ structure (which I happen to know the enumeration ID of) with
+\begin{verbatim}
+    python3 Analysis.py XYZ struct_enum.out --draw 59
+\end{verbatim}
+
+So far we have operated entirely in the realm of mathematical theory. Now let us compare this model to simulations done in \texttt{VASP} to see how well this model works.
+
+\begin{verbatim}
+    JK_Map.x struct_enum.out INT >> JKCONFIG
+    python3 JK_Scatter.py JKCONFIG >> JKCONFIG_REDUCED
+    mkdir vars
+    python3 GenXYZ.py XYZ vars JKCONFIG_REDUCED
+    cd vars
+    for d in variations.*; do cd $d; xyz2pos XYZ -mag co=3; qvasp; cd -; done
+    cd ..
+\end{verbatim}
+
+We are now back in the main directory. Once the \texttt{VASP} simulations are complete (along with relaxation, if so desired), we can quickly grab the necessary data with a short bash script (shamelessly copied from a script written by Dr. Widom):
+\begin{verbatim}
+    for name in variation*; do
+        E=`awk '/E0=/{print 1.*$5}' $name/output | tail -1`;
+        printf "%s %10.2f\n" $name $E >> ENERGY_DATA;
+    done
+\end{verbatim}
+Finally, we can visualize this data with
+\begin{verbatim}
+    python3 JK_fitter.py JKCONFIG ENERGY_DATA
+\end{verbatim}
+
+Again, all of these analyses should work with any arbitrary \texttt{XYZ} file, not just Heusler structures and any kind of J-K-like model.
+
+\end{document}

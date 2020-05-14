@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}Python Setup}{2}% 
+\contentsline {subsection}{\numberline {1.1}Dependencies}{2}% 
+\contentsline {subsection}{\numberline {1.2}Installing and Running}{2}% 
+\contentsline {section}{\numberline {2}\texttt {Analysis.py}}{4}% 
+\contentsline {subsection}{\numberline {2.1}Input Files}{4}% 
+\contentsline {subsection}{\numberline {2.2}The \texttt {--map} Argument}{4}% 
+\contentsline {subsection}{\numberline {2.3}The \texttt {--rad} Argument}{4}% 
+\contentsline {subsection}{\numberline {2.4}The \texttt {--draw} Argument}{5}% 
+\contentsline {section}{\numberline {3}\texttt {EnergyMinimization\_v2.f90}}{5}% 
+\contentsline {section}{\numberline {4}\texttt {EMin\_v3.f90}}{7}% 
+\contentsline {section}{\numberline {5}\texttt {Generate\_Interactions.py}}{8}% 
+\contentsline {section}{\numberline {6}\texttt {JK\_Map.f90}}{8}% 
+\contentsline {section}{\numberline {7}\texttt {JK\_Scatter.py}}{8}% 
+\contentsline {section}{\numberline {8}\texttt {GenXYZ.py}}{9}% 
+\contentsline {section}{\numberline {9}\texttt {JK\_fitter.py}}{9}% 
+\contentsline {section}{\numberline {10}A Typical Workflow}{10}% 

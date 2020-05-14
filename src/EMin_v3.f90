@@ -1,0 +1,143 @@
+PROGRAM ENERGYMINIMIZATION
+    IMPLICIT NONE
+    CHARACTER (16), DIMENSION (:), ALLOCATABLE :: CONFIGS
+    CHARACTER (64) :: ENUM_FILE, INT_FILE
+    CHARACTER (5) :: BUFFER
+    CHARACTER (16) :: CONFIG, CONFIG_BEST
+    INTEGER, DIMENSION (:), ALLOCATABLE :: IDS, POSA, POSB, DIST
+    INTEGER :: I, N, M, NUMLINES = 0, HEADER = 0, STEPS = 201, ID_BEST, SA, SB
+    REAL, DIMENSION(4, 4, 2) :: INTMATRIX = 0
+    REAL :: E = 0, E_BEST, J, K
+    REAL, DIMENSION (:), ALLOCATABLE :: INTVALS
+    REAL, PARAMETER :: PI = 4.D0*ATAN(1.D0)
+
+!   GET ENUM AND INTERACTION FILE FROM ARGS
+    CALL GETARG(1, ENUM_FILE)
+    CALL GETARG(2, INT_FILE)
+!   COUNT NUMBER OF LINES IN ENUM
+    OPEN(1, FILE=ENUM_FILE)
+    DO
+        READ(1, *, END=1001)
+        NUMLINES = NUMLINES + 1
+    END DO
+    1001 CLOSE(1)
+    OPEN(1, FILE=ENUM_FILE)
+!   FIND START OF ENUMERATION LISTINGS
+    DO WHILE(BUFFER /= 'start')
+        READ(1, *) BUFFER
+        HEADER = HEADER + 1
+    END DO
+    ALLOCATE(CONFIGS(NUMLINES - HEADER))
+    ALLOCATE(IDS(NUMLINES - HEADER))
+!   READ ALL POSSIBLE CONFIGURATIONS FROM ENUM FILE
+    DO N = 1, NUMLINES - HEADER
+        READ(1, *) IDS(N), BUFFER, BUFFER, BUFFER, BUFFER, &
+            BUFFER, BUFFER, BUFFER, BUFFER, BUFFER, &
+            BUFFER, BUFFER, BUFFER, BUFFER, BUFFER, &
+            BUFFER, BUFFER, BUFFER, BUFFER, BUFFER, &
+            BUFFER, BUFFER, BUFFER, BUFFER, BUFFER, &
+            BUFFER, CONFIGS(N)
+    END DO
+    CLOSE(1)
+!   READ FILE WHICH LISTS POSSIBLE INTERACTIONS
+    OPEN(1, FILE=INT_FILE)
+    NUMLINES = 0
+    DO
+        READ(1, *, END=1002)
+        NUMLINES = NUMLINES + 1
+    END DO
+    1002 CLOSE(1)
+    ALLOCATE(POSA(NUMLINES))
+    ALLOCATE(POSB(NUMLINES))
+    ALLOCATE(DIST(NUMLINES))
+    OPEN(1, FILE=INT_FILE)
+    DO N = 1, NUMLINES
+!   POSA AND POSB ARE NUMBERS (1...16 FOR HEUSLER)
+!   DIST IS A NUMBER (1 = NEAREST NEIGHBOR,
+!   2 = NEXT NEAREST NEIGHBOR)
+        READ(1, *)  POSA(N), POSB(N), DIST(N)
+    END DO
+    CLOSE(1)
+    ALLOCATE(INTVALS(STEPS))
+    CALL LINSPACE(INTVALS, 0.0, 2 * PI, STEPS)
+    !$OMP PARALLEL DO
+    DO I = 1, SIZE(INTVALS)
+        J = COS(INTVALS(I))
+        K = SIN(INTVALS(I))
+!       SET UP THE INTERACTION MATRIX:
+        INTMATRIX(1, 1, 1) = J
+        !INTMATRIX(1, 2, 1) = J
+        !INTMATRIX(2, 1, 1) = J
+        INTMATRIX(2, 2, 1) = J
+        INTMATRIX(3, 3, 1) = J
+        !INTMATRIX(3, 4, 1) = J
+        !INTMATRIX(4, 3, 1) = J
+        INTMATRIX(4, 4, 1) = J
+        INTMATRIX(1, 1, 2) = K 
+        INTMATRIX(2, 2, 2) = K 
+        INTMATRIX(3, 3, 2) = K 
+        INTMATRIX(4, 4, 2) = K 
+!       INITIALIZE THE BEST ENERGY TO INFINITY
+        E_BEST = HUGE(E_BEST)
+        ID_BEST = 0
+        DO N = 1, SIZE(CONFIGS)
+!           GO THROUGH EACH CONFIGURATION
+            CONFIG = CONFIGS(N)
+            E = 0
+            DO M = 1, SIZE(POSA)
+                READ(CONFIG(POSA(M):POSA(M)), *) SA
+                READ(CONFIG(POSB(M):POSB(M)), *) SB
+!               FOR EACH INTERACTION LISTED IN THE
+!               INTERACTION FILE, ADD THE CONTRIBUTION
+!               TO THE TOTAL ENERGY
+                E = E + INTMATRIX(SA + 1, SB + 1, DIST(M))
+            END DO
+            IF (E <= E_BEST) THEN
+!               IF THIS IS THE LOWEST ENERGY, KEEP IT
+                E_BEST = E
+                CONFIG_BEST = CONFIG
+                ID_BEST = IDS(N)
+            END IF
+        END DO
+!       REPEAT THE PREVIOUS PROCESS, BUT NOW PRINT ALL
+!       OF THE OCCURANCES OF THE LOWEST ENERGY
+!       (DEGENERACIES)
+        DO N = 1, SIZE(CONFIGS)
+            CONFIG = CONFIGS(N)
+            E = 0
+            DO M = 1, SIZE(POSA)
+                READ(CONFIG(POSA(M):POSA(M)), *) SA
+                READ(CONFIG(POSB(M):POSB(M)), *) SB
+                E = E + INTMATRIX(SA + 1, SB + 1, DIST(M))
+            END DO
+            IF (E == E_BEST) THEN
+                WRITE(*, FMT="(F11.9, A1, F11.9, A1, F12.9, A1, I6)") J, ",", K, ",", INTVALS(I), ",", IDS(N)
+            END IF
+        END DO
+        
+    END DO
+    !$OMP END PARALLEL DO
+    DEALLOCATE(INTVALS)
+    DEALLOCATE(CONFIGS)
+    DEALLOCATE(IDS)
+END PROGRAM
+
+SUBROUTINE LINSPACE(Z, L, K, N)
+!###################################
+! FILLS THE ARRAY Z WITH N NUMBERS #
+! EVENLY SPACED BETWEEN L AND K    #
+! (INCLUSIVELY)                    #
+!###################################
+    IMPLICIT NONE
+    INTEGER :: N, I
+    REAL, DIMENSION(N) :: Z
+    REAL :: D, L, K
+    D = (K - L) / N
+    Z(1) = L
+    DO I = 2, N - 1
+        Z(I) = Z(I-1) + D
+    END DO
+    Z(1) = L
+    Z(N) = K
+    RETURN
+END SUBROUTINE
