@@ -241,4 +241,23 @@ Finally, we can visualize this data with
 
 Again, all of these analyses should work with any arbitrary \texttt{XYZ} file, not just Heusler structures and any kind of J-K-like model.
 
+\section{Location of Important Files}
+
+All of the programs discussed are located in my home directory, \texttt{/home/nhoffman/heusler}. Inside that directory there are four subdirectories.
+
+\subsection{\texttt{resources}}
+Inside the \texttt{resources} directory, there are two \texttt{CSV} files, \texttt{2sp.csv} and \texttt{3sp.csv}. These correspond to the \texttt{CSV} files required for the square map of 2 and 3 species models respectively. There are also four directories with alloy-like names and one called \texttt{4sp}. In the two-species alloy folders, there are \texttt{XYZ} files, one \texttt{INT} (interaction) file, and one \texttt{struct\_enum.out} file (only one of each of these files is needed for both kinds of structures). There is also a \texttt{CSV} file which contains the $J$ and $K$ values for a few simulations I ran along with the corresponding VASP energy. There are additional folders corresponding to these swaps in my \texttt{alloy.pbe} folder. In the \texttt{CuHgTi} folder, there is also an interaction file, an \texttt{XYZ} file, and an enumeration file. In \texttt{LaLiNiSn}, there are two files, \texttt{JKCONFIG} and \texttt{JKCONFIG\_WIDOM} which contain all the $J$ and $K$ values from various swaps, along with \texttt{ENERGY\_DATA}, which contains the data from VASP for some of those swaps. Additional files can be found in the corresponding subdirectory of \texttt{alloy.pbe}. Finally, the folder \texttt{4sp} contains the enumeration files for a generic four-species Heusler. I stopped using this when I started working with LaLiNiSn, but I left the files there just in case.
+
+\subsection{\texttt{results}}
+In the \texttt{results} folder, I have a few \texttt{HTML} files which are saved plots from the two-species model (fit to VASP data). There is also one file which is a two-species phase diagram created using the old non-radial mapping. All of the other files are results from energy minimization. Anything labeled \texttt{*sp\_degen(\_widom).csv} are to be used as radial maps with the \texttt{Analysis.py} program (for the given species indicated by the number). Anything with the text \texttt{JK\_Map} in it are files containing the $J$ and $K$ values for each configuration, which can be used as the \texttt{JKCONFIG} file for \texttt{JK\_fitter.py} or \texttt{GenXYZ.py}.
+
+\subsection{\texttt{src}}
+
+This folder contains the source (\texttt{.f91}) files for all of the Fortran programs. All of them (except for \texttt{EnergyMinimization\_v2.f90}) should have some in-code documentation.
+
+\subsection{\texttt{manual}}
+
+This folder contains the \texttt{.tex} and \texttt{.pdf} files for this document, as well as any support files needed by \LaTeX.
+
+
 \end{document}
